@@ -1,0 +1,7 @@
+numpy
+pandas
+scikit-learn
+nltk
+seaborn
+sentence-transformers
+-e .
