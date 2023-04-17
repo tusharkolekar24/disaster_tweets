@@ -1,6 +1,6 @@
 from src.logger import logging
 from src.exception import CustomException
-from src.component.data_cleaning import DataCleaning
+from src.component.data_cleaning import DataCleaning,bert_model
 import sys
 import pandas as pd
 import os
@@ -20,7 +20,6 @@ class DataLoading:
 
           try:
              trainset = pd.read_csv(self.data_loading_paths.raw_trainset_path)
-             # print("Dataset is Available for training and Ready to Start")
              logging.info("Dataset is Available for training and Ready to Start")
 
              cleaning_text = DataCleaning()
@@ -45,6 +44,30 @@ class DataLoading:
              clean_testset.to_csv(os.path.join(os.getcwd(),'model_artifacts','clean_dataset','clean_testset.csv'),
                                    index=False)
              logging.info("Test dataset is cleaned & store in model artifacts with clean dataset folder")
+
+             logging.info("Sentence Embedding start with using BERT Models for train datasets")
+             embedded_trainset_sentence = bert_model.encode(clean_trainset_with_stopwords)
+ 
+             ready_embedded_trainset = pd.DataFrame(embedded_trainset_sentence,
+                                                    columns=[f'feature_{count}' for count in range(embedded_trainset_sentence.shape[1])])
+
+             ready_embedded_trainset['target'] = trainset['target'].values
+
+             ready_embedded_trainset.to_csv(os.path.join(os.getcwd(),'model_artifacts','embedded_dataset','train.csv'),
+                                            index=False)
+             logging.info("Sentence Embedding Finished with using BERT Models for Training datasets")
+             logging.info("Training datasets has shape of {}".format(ready_embedded_trainset.shape)) 
+
+             logging.info("Sentence Embedding start with using BERT Models for Test datasets") 
+             embedded_testset_sentence  = bert_model.encode(clean_testset_with_stopwords) 
+
+             ready_embedded_testset = pd.DataFrame(embedded_testset_sentence,
+                                                    columns=[f'feature_{count}' for count in range(embedded_testset_sentence.shape[1])])
+             
+             logging.info("Sentence Embedding Finished with using BERT Models for Testing datasets") 
+             ready_embedded_testset.to_csv(os.path.join(os.getcwd(),'model_artifacts','embedded_dataset','test.csv'),
+                                            index=False)
+             logging.info("Testing datasets has shape of {}".format(ready_embedded_testset.shape)) 
 
           except Exception as e:
                  raise CustomException(e,sys)

@@ -189,19 +189,3 @@ class FeatureEngineering:
           self.__additional_feature['adv_count']         = self.pos_check(text,'adv')
           self.__additional_feature['other_count']       = self.pos_check(text,'other')
           return self.__additional_feature
-        
-def remove_stopwords(text):
-    """
-    Unwanted space present in given text will be softly handle by same functions.
-    Used Dataframe with column name and assigne value to text variable.
-
-    Example :
-             text = spam_detection['messages']            
-    """
-    import nltk
-
-    #Stop words present in the library
-    stopwords = nltk.corpus.stopwords.words('english')
-    cleaning_sen = [' '.join([word for word in sentence.split(" ") if word not in stopwords]) for sentence in text]
-
-    return cleaning_sen
