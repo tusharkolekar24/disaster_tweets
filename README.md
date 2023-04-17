@@ -24,6 +24,7 @@ The author explicitly uses the word “ABLAZE” but means it metaphorically. Th
 This dataset was created by the company figure-eight and originally shared on their ‘Data For Everyone’ website here.
 
 Tweet source: https://twitter.com/AnyOtherAnnaK/status/629195955506708480
+kaggle competition: https://www.kaggle.com/competitions/nlp-getting-started/overview
 
 # Submission File
 For each ID in the test set, you must predict 1 if the tweet is describing a real disaster, and 0 otherwise. The file should contain a header and have the following format:
