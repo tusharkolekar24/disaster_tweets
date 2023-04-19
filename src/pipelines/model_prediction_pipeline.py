@@ -77,8 +77,8 @@ class ModelPredictionPipeline:
                 result_summary_train = pd.DataFrame(trainset_summary,columns= cols_name)    
                 result_summary_test  = pd.DataFrame(testset_summary,columns= cols_name)
                 
-                result_summary_train.to_csv(os.path.join(os.getcwd(),'train_model_summary.csv'),index=False)
-                result_summary_test.to_csv(os.path.join(os.getcwd(),'test_model_summary.csv'),index=False)
+                result_summary_train.to_csv(os.path.join(os.getcwd(),'output','train_model_summary.csv'),index=False)
+                result_summary_test.to_csv(os.path.join(os.getcwd(),'output','test_model_summary.csv'),index=False)
 
                 return result_summary_train,result_summary_test
            
